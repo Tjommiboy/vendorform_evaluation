@@ -680,6 +680,28 @@
     page-break-inside: avoid;
   }
 
+  .criteriaTable {
+    width: 100% !important;
+    table-layout: auto !important;
+    max-width: 100% !important;
+  }
+
+  .criteriaTable th,
+  .criteriaTable td {
+    padding: 0.65rem 0.5rem !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .categoryHeader,
+  .criteriaHeader,
+  .weightHeader,
+  .ratingHeader,
+  .scoreHeader {
+    width: auto !important;
+  }
+
   .tableRow td {
     padding: 0.65rem !important;
   }
