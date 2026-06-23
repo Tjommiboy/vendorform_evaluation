@@ -680,10 +680,17 @@
     page-break-inside: avoid;
   }
 
+  html,
+  body,
+  #root {
+    font-size: clamp(10px, 1.2vw, 13px) !important;
+  }
+
   .criteriaTable {
     width: 100% !important;
     table-layout: auto !important;
     max-width: 100% !important;
+    font-size: clamp(0.8rem, 0.95vw, 1rem) !important;
   }
 
   .criteriaTable th,
@@ -694,12 +701,21 @@
     overflow-wrap: anywhere !important;
   }
 
+  .criteriaTable th {
+    font-size: clamp(0.75rem, 0.85vw, 0.9rem) !important;
+  }
+
+  .criteriaTable td {
+    font-size: clamp(0.8rem, 0.9vw, 0.95rem) !important;
+  }
+
   .categoryHeader,
   .criteriaHeader,
   .weightHeader,
   .ratingHeader,
   .scoreHeader {
     width: auto !important;
+    min-width: 0 !important;
   }
 
   .tableRow td {
