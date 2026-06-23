@@ -1,18 +1,11 @@
 :global(:root) {
-  --navy: #102a43;
-  --navy-soft: #173f5f;
-  --accent: #2563eb;
-  --accent-soft: #dbeafe;
-  --gold: #d97706;
-  --gold-soft: #ffedd5;
-  --green: #16a34a;
-  --green-soft: #dcfce7;
-  --red: #b91c1c;
-  --border: #cbd5e1;
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --text: #0f172a;
-  --text-muted: #475569;
+  --navy: #1B4F8A;
+  --accent: #2E7BC4;
+  --border: #D7DEE5;
+  --bg: #F2F4F6;
+  --surface: #E8ECF0;
+  --text: #1A1F2E;
+  --text-muted: #4B5A75;
   --radius: 18px;
   --radius-sm: 12px;
 }
@@ -29,7 +22,7 @@
   grid-template-columns: minmax(0, 1fr) 280px;
   gap: 1.5rem;
   padding: 2rem 2.25rem;
-  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  background: linear-gradient(135deg, #1B4F8A 0%, #2E7BC4 100%);
   color: white;
 }
 
@@ -43,9 +36,10 @@
 }
 
 .title {
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 2.5vw, 2.6rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   margin: 0;
 }
 
@@ -57,8 +51,8 @@
 }
 
 .summaryPanel {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-sm);
   padding: 1.5rem;
   display: flex;
@@ -134,7 +128,7 @@
 }
 
 .tableRow {
-  background: #f8fafc;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 1rem;
 }
@@ -179,7 +173,7 @@
   padding: 0.35rem 1rem;
   font-size: 0.95rem;
   color: var(--text);
-  background: #ffffff;
+  background: var(--surface);
 }
 
 .weightInput {
@@ -216,20 +210,20 @@
   height: 2.2rem;
   border-radius: 0.85rem;
   border: 1px solid var(--border);
-  background: #f8fafc;
+  background: var(--bg);
 }
 
 .removeButton:hover,
 .addButton:hover,
 .smallButton:hover {
-  color: #1d4ed8;
+  color: var(--navy);
 }
 
 .addButton {
   padding: 0.7rem 0.95rem;
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(46, 123, 196, 0.22);
   border-radius: 0.85rem;
-  background: #f8fafc;
+  background: var(--bg);
 }
 
 .categoryControls {
@@ -238,9 +232,9 @@
 
 .smallButton {
   padding: 0.55rem 0.85rem;
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(46, 123, 196, 0.2);
   border-radius: 0.85rem;
-  background: #f8fafc;
+  background: var(--bg);
 }
 
 .catName {
@@ -310,14 +304,14 @@
 
 .star {
   font-size: 0.85rem;
-  color: #cbd5e1;
+  color: var(--border);
   border-radius: 999px;
   width: 1.2rem;
   height: 1.2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.03);
+  background: rgba(27, 79, 138, 0.08);
   transition:
     transform 0.15s ease,
     color 0.15s ease,
@@ -327,11 +321,11 @@
 
 .star:hover {
   transform: scale(1.05);
-  background: rgba(37, 99, 235, 0.12);
+  background: rgba(46, 123, 196, 0.18);
 }
 
 .active {
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .detailsRow {
@@ -406,7 +400,7 @@
   gap: 0.12rem;
   padding: 0.45rem 0.6rem;
   background: white;
-  border: 1px solid rgba(203, 213, 225, 0.8);
+  border: 1px solid rgba(46, 123, 196, 0.18);
   border-radius: 0.75rem;
 }
 
@@ -454,7 +448,7 @@
 .levelChart {
   margin-top: 1.5rem;
   padding: 1.25rem 1.25rem 1.1rem;
-  background: #f8fafc;
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 1rem;
 }
@@ -480,7 +474,7 @@
   align-items: center;
   padding: 0.85rem 1rem;
   background: white;
-  border: 1px solid rgba(203, 213, 225, 0.8);
+  border: 1px solid rgba(46, 123, 196, 0.18);
   border-radius: 0.85rem;
 }
 
@@ -535,8 +529,8 @@
 }
 
 .incomplete {
-  color: #475569;
-  background: #e2e8f0;
+  color: var(--text-muted);
+  background: var(--bg);
 }
 
 .totalSuffix {
@@ -593,7 +587,7 @@
 }
 
 .btnReset {
-  background: #f8fafc;
+  background: var(--bg);
   color: var(--text);
   border-color: var(--border);
 }
@@ -604,7 +598,7 @@
 }
 
 .btnOutline:hover {
-  background: #1d4ed8;
+  background: var(--navy);
 }
 
 @media (max-width: 900px) {

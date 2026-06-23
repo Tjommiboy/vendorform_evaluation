@@ -1,14 +1,14 @@
 import { Outlet, NavLink } from "react-router-dom";
 
 const linkClasses = ({ isActive }) =>
-  `transition-colors duration-200 ${isActive ? "text-white font-semibold" : "text-slate-300 hover:text-white"}`;
+  `transition-colors duration-200 ${isActive ? "text-white font-semibold" : "text-blue-100 hover:text-white"}`;
 
 export default function MainLayout() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <nav className="bg-slate-950 text-slate-200 shadow-sm">
+    <div className="min-h-screen bg-[#F2F4F6] text-[#1A1F2E]">
+      <nav className="bg-[#1B4F8A] text-white shadow-sm">
         <div className="mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4 max-w-6xl">
-          <div className="text-lg font-semibold text-white">
+          <div className="text-lg font-semibold text-white tracking-[0.08em]">
             Vendor Evaluation
           </div>
 
