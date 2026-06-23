@@ -125,6 +125,18 @@ export default function VendorEvaluation() {
   }, [scrollTargetRow]);
   const complete = ratings.every((rating) => rating > 0);
   const activeLevel = getScoreLevel(total);
+  const activeAssessmentLevel =
+    activeLevel === "Level D" && total < 20 ? "" : activeLevel;
+  const activeCriteriaLevel =
+    total >= 90
+      ? 5
+      : total >= 75
+      ? 4
+      : total >= 60
+      ? 3
+      : total >= 20
+      ? 2
+      : 1;
 
   return (
     <div className={styles.page}>
@@ -209,14 +221,6 @@ export default function VendorEvaluation() {
             </label>
           </div>
         </div>
-
-        <div className={styles.summaryPanel}>
-          <p className={styles.summaryLabel}>How it works</p>
-          <p className={styles.summaryText}>
-            Select a score from 1 to 5 in each category. The form calculates the
-            weighted score automatically and highlights your vendor level.
-          </p>
-        </div>
       </header>
 
       <div className={styles.formActions}>
@@ -255,39 +259,167 @@ export default function VendorEvaluation() {
               <TotalScore criteria={categories} ratings={ratings} />
             </div>
 
-            <div className={styles.levelChartInline}>
-              <p className={styles.chartTitle}>Score levels</p>
-              <ul className={styles.levelListInline}>
+          </div>
+
+          <div className={styles.instructions}>
+            <p className={styles.instructionsTitle}>Scoring guidance</p>
+            <div className={`${styles.instructionsSection} ${styles.assessmentContainer}`}>
+              <p className={styles.instructionsSectionTitle}>Assessment result level (Overall Rating)</p>
+
+              <div className={styles.subSection}>
+                <p className={styles.subSectionTitle}>Scoring Criteria</p>
+                <div className={styles.assessmentLevelList}>
+                  {[
+                    {
+                      level: 5,
+                      label: "Excellent",
+                      description:
+                        "Exceeds expectations, Outstanding performance, Creates added value",
+                      className: styles.highlightLevelA,
+                    },
+                    {
+                      level: 4,
+                      label: "Good",
+                      description: "Meets expectations, Consistent performance",
+                      className: styles.highlightLevelB,
+                    },
+                    {
+                      level: 3,
+                      label: "Average",
+                      description: "Fair, Some issues need monitoring",
+                      className: styles.highlightLevelC,
+                    },
+                    {
+                      level: 2,
+                      label: "Needs improvement",
+                      description: "Below expectations, Requires improvement",
+                      className: styles.highlightLevelD,
+                    },
+                    {
+                      level: 1,
+                      label: "Fails",
+                      description: "Does not meet requirements, High risk",
+                      className: styles.highlightLevelE,
+                    },
+                  ].map((item) => {
+                    const isActive = activeCriteriaLevel === item.level;
+                    return (
+                      <div
+                        key={item.level}
+                        className={`${styles.assessmentLevelItem} ${
+                          isActive ? item.className : ""
+                        } ${styles.compactCriteriaCard}`}
+                      >
+                        <div className={styles.assessmentLevelHeading}>
+                          <span className={styles.assessmentLevelName}>{item.label}</span>
+                        </div>
+                        <p className={styles.instructionsText}>{item.description}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className={styles.assessmentLevelList}>
                 {[
-                  { name: "Level A", range: "90–100" },
-                  { name: "Level B", range: "75–89" },
-                  { name: "Level C", range: "60–74" },
-                  { name: "Level D", range: "0–59" },
-                ].map((item) => {
-                  const activeClass =
-                    activeLevel === item.name
-                      ? styles[`active${item.name.replace(/\s+/g, "")}`]
-                      : "";
+                  {
+                    name: "Level A",
+                    range: "90 - 100",
+                    label: "Partner",
+                    description: "Strategic business alliance",
+                  },
+                  {
+                    name: "Level B",
+                    range: "75 - 89",
+                    label: "Preferred",
+                    description: "Reliable main seller",
+                  },
+                  {
+                    name: "Level C",
+                    range: "60 - 74",
+                    label: "Developing",
+                    description: "Must develop and follow up.",
+                  },
+                  {
+                    name: "Level D",
+                    range: "20 - 59",
+                    label: "At Risk",
+                    description: "Does not pass the criteria / consider adjusting the plan.",
+                  },
+                ].map((level) => {
+                  const levelClass =
+                    activeAssessmentLevel === level.name
+                      ? styles[`highlight${level.name.replace(/\s+/g, "")}`]
+                      : styles.assessmentLevelItem;
                   return (
-                    <li
-                      key={item.name}
-                      className={`${styles.levelItemInline} ${activeClass}`}
+                    <div
+                      key={level.name}
+                      className={`${styles.assessmentLevelItem} ${levelClass}`}
                     >
-                      <span className={styles.levelName}>{item.name}</span>
-                      <span className={styles.levelRange}>{item.range}</span>
-                    </li>
+                      <div className={styles.assessmentLevelHeading}>
+                        <span className={styles.assessmentLevelName}>{level.name}</span>
+                        <span className={styles.assessmentLevelBadge}>{level.label}</span>
+                      </div>
+                      <div>
+                        <p className={styles.assessmentLevelRange}>{level.range}</p>
+                        <p className={styles.instructionsText}>{level.description}</p>
+                      </div>
+                    </div>
                   );
                 })}
-              </ul>
+              </div>
+
+              <div className={styles.subSection}>
+                <p className={styles.subSectionTitle}>Action Plan</p>
+                <div className={styles.assessmentLevelList}>
+                  {[
+                    {
+                      name: "Level A",
+                      label: "Partner",
+                      description:
+                        "Maintain ongoing collaboration and develop a long-term joint project.",
+                    },
+                    {
+                      name: "Level B",
+                      label: "Preferred",
+                      description:
+                        "Promote development in areas where there are shortcomings and follow up periodically.",
+                    },
+                    {
+                      name: "Level C",
+                      label: "Developing",
+                      description:
+                        "Develop a Corrective Action Plan, setting goals and timelines.",
+                    },
+                    {
+                      name: "Level D",
+                      label: "At Risk",
+                      description:
+                        "Issue a formal warning / Consider measures to reduce risk or terminate the vendor relationship.",
+                    },
+                  ].map((plan) => {
+                    const planClass =
+                      activeLevel === plan.name &&
+                      (plan.name !== "Level D" || total >= 20)
+                        ? styles[`highlight${plan.name.replace(/\s+/g, "")}`]
+                        : styles.assessmentLevelItem;
+                    return (
+                      <div
+                        key={plan.name}
+                        className={`${styles.assessmentLevelItem} ${planClass}`}
+                      >
+                        <div className={styles.assessmentLevelHeading}>
+                          <span className={styles.assessmentLevelName}>{plan.name}</span>
+                          <span className={styles.assessmentLevelBadge}>{plan.label}</span>
+                        </div>
+                        <p className={styles.instructionsText}>{plan.description}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.instructions}>
-          <p className={styles.instructionsTitle}>Scoring guidance</p>
-          <p>
-            Use the weighted totals to identify risk and opportunity. A higher
-            score indicates stronger overall performance and consistency.
-          </p>
         </div>
       </div>
 
