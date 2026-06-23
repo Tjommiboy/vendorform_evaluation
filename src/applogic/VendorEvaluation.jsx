@@ -9,6 +9,14 @@ export default function VendorEvaluation() {
   const [ratings, setRatings] = useState(
     new Array(criteriaData.length).fill(0),
   );
+  const [formDetails, setFormDetails] = useState({
+    vendorCode: "",
+    evaluator: "",
+    vendorName: "",
+    position: "",
+    evaluationPeriod: "",
+    evaluationDate: "",
+  });
   const [scrollTargetRow, setScrollTargetRow] = useState(null);
   const newCategoryRef = useRef(null);
 
@@ -22,6 +30,10 @@ export default function VendorEvaluation() {
     const updated = [...ratings];
     updated[row] = value;
     setRatings(updated);
+  };
+
+  const handleFormDetailChange = (field, value) => {
+    setFormDetails((current) => ({ ...current, [field]: value }));
   };
 
   const updateCategory = (row, field, value) => {
@@ -119,12 +131,83 @@ export default function VendorEvaluation() {
       <header className={styles.formHeader}>
         <div>
           <p className={styles.overline}>Vendor evaluation</p>
-          <h1 className={styles.title}>Vendor Evaluation Form</h1>
-          <p className={styles.description}>
-            Review supplier performance across collaboration, delivery, quality,
-            cost, and compliance. The weighted score helps you compare vendors
-            consistently.
-          </p>
+          <h1 className={styles.title}>
+            Evaluation for Improvement, Collaboration, and Mutual Success
+          </h1>
+          <div className={styles.headerFields}>
+            <label className={styles.headerField}>
+              <span>Vendor Code</span>
+              <input
+                className={styles.headerInput}
+                type="text"
+                value={formDetails.vendorCode}
+                onChange={(event) =>
+                  handleFormDetailChange("vendorCode", event.target.value)
+                }
+                placeholder="Enter vendor code"
+              />
+            </label>
+            <label className={styles.headerField}>
+              <span>Evaluator</span>
+              <input
+                className={styles.headerInput}
+                type="text"
+                value={formDetails.evaluator}
+                onChange={(event) =>
+                  handleFormDetailChange("evaluator", event.target.value)
+                }
+                placeholder="Enter evaluator name"
+              />
+            </label>
+            <label className={styles.headerField}>
+              <span>Vendor Name</span>
+              <input
+                className={styles.headerInput}
+                type="text"
+                value={formDetails.vendorName}
+                onChange={(event) =>
+                  handleFormDetailChange("vendorName", event.target.value)
+                }
+                placeholder="Enter vendor name"
+              />
+            </label>
+            <label className={styles.headerField}>
+              <span>Position</span>
+              <input
+                className={styles.headerInput}
+                type="text"
+                value={formDetails.position}
+                onChange={(event) =>
+                  handleFormDetailChange("position", event.target.value)
+                }
+                placeholder="Enter position"
+              />
+            </label>
+            <label className={styles.headerField}>
+              <span>Evaluation Period</span>
+              <input
+                className={styles.headerInput}
+                type="text"
+                value={formDetails.evaluationPeriod}
+                onChange={(event) =>
+                  handleFormDetailChange("evaluationPeriod", event.target.value)
+                }
+                placeholder="Enter evaluation period"
+              />
+            </label>
+            <label className={styles.headerField}>
+              <span>Evaluation Date</span>
+              <input
+                className={styles.headerInput}
+                type="text"
+                value={formDetails.evaluationDate}
+                onChange={(event) =>
+                  handleFormDetailChange("evaluationDate", event.target.value)
+                }
+                placeholder="Enter evaluation date"
+              />
+            </label>
+          </div>
         </div>
 
         <div className={styles.summaryPanel}>

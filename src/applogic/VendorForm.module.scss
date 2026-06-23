@@ -1,11 +1,11 @@
 :global(:root) {
-  --navy: #1B4F8A;
-  --accent: #2E7BC4;
-  --border: #D7DEE5;
-  --bg: #F2F4F6;
-  --surface: #E8ECF0;
-  --text: #1A1F2E;
-  --text-muted: #4B5A75;
+  --navy: #1b4f8a;
+  --accent: #2e7bc4;
+  --border: #d7dee5;
+  --bg: #f2f4f6;
+  --surface: #e8ecf0;
+  --text: #1a1f2e;
+  --text-muted: #4b5a75;
   --radius: 18px;
   --radius-sm: 12px;
 }
@@ -22,7 +22,7 @@
   grid-template-columns: minmax(0, 1fr) 280px;
   gap: 1.5rem;
   padding: 2rem 2.25rem;
-  background: linear-gradient(135deg, #1B4F8A 0%, #2E7BC4 100%);
+  background: linear-gradient(135deg, #1b4f8a 0%, #2e7bc4 100%);
   color: white;
 }
 
@@ -48,6 +48,53 @@
   max-width: 44rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.87);
+}
+
+.headerFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.headerField {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.headerField span {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.headerInput {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.14);
+  color: white;
+  padding: 0.75rem 0.95rem;
+  font-size: 0.95rem;
+}
+
+.headerInput::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.headerInput:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+@media (max-width: 720px) {
+  .headerFields {
+    grid-template-columns: 1fr;
+  }
 }
 
 .summaryPanel {
@@ -590,6 +637,19 @@
   background: var(--bg);
   color: var(--text);
   border-color: var(--border);
+}
+
+.btnPrimary {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+  box-shadow: 0 14px 30px rgba(27, 79, 138, 0.18);
+  margin-top: 1em;
+}
+
+.btnPrimary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .btnOutline {
