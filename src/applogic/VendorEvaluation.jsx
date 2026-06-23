@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { criteriaData } from "./vendorData";
 import EvaluationTable from "./EvaluationTable";
 import TotalScore, { getScoreLevel } from "./TotalScore";
@@ -6,7 +6,11 @@ import styles from "./VendorForm.module.scss";
 
 export default function VendorEvaluation() {
   const [categories, setCategories] = useState(criteriaData);
-  const [ratings, setRatings] = useState(new Array(criteriaData.length).fill(0));
+  const [ratings, setRatings] = useState(
+    new Array(criteriaData.length).fill(0),
+  );
+  const [scrollTargetRow, setScrollTargetRow] = useState(null);
+  const newCategoryRef = useRef(null);
 
   useEffect(() => {
     if (ratings.length !== categories.length) {
@@ -43,7 +47,9 @@ export default function VendorEvaluation() {
     const weight = Number(value);
     setCategories((current) =>
       current.map((item, index) =>
-        index === row ? { ...item, weight: Number.isNaN(weight) ? item.weight : weight } : item,
+        index === row
+          ? { ...item, weight: Number.isNaN(weight) ? item.weight : weight }
+          : item,
       ),
     );
   };
@@ -67,15 +73,18 @@ export default function VendorEvaluation() {
   };
 
   const addCategory = () => {
-    setCategories((current) => [
-      ...current,
-      {
-        name: "New category",
-        sub: "(Category detail)",
-        weight: 10,
-        items: ["New criterion"],
-      },
-    ]);
+    setCategories((current) => {
+      setScrollTargetRow(current.length);
+      return [
+        ...current,
+        {
+          name: "New category",
+          sub: "(Category detail)",
+          weight: 10,
+          items: ["New criterion"],
+        },
+      ];
+    });
   };
 
   const removeCategory = (row) => {
@@ -91,8 +100,19 @@ export default function VendorEvaluation() {
     (acc, criterion, index) => acc + (ratings[index] * criterion.weight) / 5,
     0,
   );
+
+  useEffect(() => {
+    if (scrollTargetRow !== null) {
+      newCategoryRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+      setScrollTargetRow(null);
+    }
+  }, [scrollTargetRow]);
   const complete = ratings.every((rating) => rating > 0);
-  const activeLevel = getScoreLevel(total, complete);
+  const activeLevel = getScoreLevel(total);
 
   return (
     <div className={styles.page}>
@@ -117,17 +137,24 @@ export default function VendorEvaluation() {
       </header>
 
       <div className={styles.formActions}>
-        <button className={`${styles.btn} ${styles.btnPrimary}`} type="button" onClick={addCategory}>
+        <button
+          className={`${styles.btn} ${styles.btnPrimary}`}
+          type="button"
+          onClick={addCategory}
+        >
           Add category
         </button>
         <div className={styles.weightSummary}>
-          Total weight: {categories.reduce((sum, item) => sum + Number(item.weight), 0)}%
+          Total weight:{" "}
+          {categories.reduce((sum, item) => sum + Number(item.weight), 0)}%
         </div>
       </div>
 
       <EvaluationTable
         criteria={categories}
         ratings={ratings}
+        scrollTargetRow={scrollTargetRow}
+        rowRef={newCategoryRef}
         onRate={handleRating}
         onCategoryChange={updateCategory}
         onWeightChange={updateWeight}
@@ -159,7 +186,10 @@ export default function VendorEvaluation() {
                       ? styles[`active${item.name.replace(/\s+/g, "")}`]
                       : "";
                   return (
-                    <li key={item.name} className={`${styles.levelItemInline} ${activeClass}`}>
+                    <li
+                      key={item.name}
+                      className={`${styles.levelItemInline} ${activeClass}`}
+                    >
                       <span className={styles.levelName}>{item.name}</span>
                       <span className={styles.levelRange}>{item.range}</span>
                     </li>
@@ -179,10 +209,16 @@ export default function VendorEvaluation() {
       </div>
 
       <div className={styles.actions}>
-        <button className={`${styles.btn} ${styles.btnReset}`} onClick={resetForm}>
+        <button
+          className={`${styles.btn} ${styles.btnReset}`}
+          onClick={resetForm}
+        >
           Reset
         </button>
-        <button className={`${styles.btn} ${styles.btnOutline}`} onClick={() => window.print()}>
+        <button
+          className={`${styles.btn} ${styles.btnOutline}`}
+          onClick={() => window.print()}
+        >
           Print
         </button>
       </div>

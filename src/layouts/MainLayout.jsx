@@ -8,7 +8,9 @@ export default function MainLayout() {
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <nav className="bg-slate-950 text-slate-200 shadow-sm">
         <div className="mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4 max-w-6xl">
-          <div className="text-lg font-semibold text-white">Vendor Evaluation</div>
+          <div className="text-lg font-semibold text-white">
+            Vendor Evaluation
+          </div>
 
           <div className="flex flex-wrap items-center gap-5">
             <NavLink to="/" className={linkClasses}>

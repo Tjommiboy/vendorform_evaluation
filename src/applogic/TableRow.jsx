@@ -4,6 +4,7 @@ import styles from "./VendorForm.module.scss";
 export default function TableRow({
   data,
   rating,
+  rowRef,
   onRate,
   onCategoryChange,
   onWeightChange,
@@ -15,7 +16,7 @@ export default function TableRow({
   const weighted = rating === 0 ? "—" : ((rating * data.weight) / 5).toFixed(1);
 
   return (
-    <tr className={styles.tableRow}>
+    <tr ref={rowRef} className={styles.tableRow}>
       <td>
         <div className={styles.inputGroup}>
           <label className={styles.fieldLabel}>Category</label>
@@ -36,7 +37,11 @@ export default function TableRow({
         </div>
 
         <div className={styles.categoryControls}>
-          <button type="button" className={styles.smallButton} onClick={onRemoveCategory}>
+          <button
+            type="button"
+            className={styles.smallButton}
+            onClick={onRemoveCategory}
+          >
             Remove category
           </button>
         </div>
@@ -71,7 +76,11 @@ export default function TableRow({
               </button>
             </div>
           ))}
-          <button type="button" className={styles.addButton} onClick={onAddItem}>
+          <button
+            type="button"
+            className={styles.addButton}
+            onClick={onAddItem}
+          >
             Add item
           </button>
         </div>

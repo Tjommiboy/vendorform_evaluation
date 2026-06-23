@@ -1,7 +1,6 @@
 import styles from "./VendorForm.module.scss";
 
-export function getScoreLevel(total, complete) {
-  if (!complete) return "Incomplete";
+export function getScoreLevel(total) {
   if (total >= 90) return "Level A";
   if (total >= 75) return "Level B";
   if (total >= 60) return "Level C";
@@ -15,15 +14,15 @@ export default function TotalScore({ criteria, ratings }) {
 
   const cappedTotal = Math.min(100, total);
   const complete = ratings.every((rating) => rating > 0);
-  const level = getScoreLevel(cappedTotal, complete);
+  const level = getScoreLevel(cappedTotal);
   const cls = complete
     ? level === "Level A"
       ? styles.levelA
       : level === "Level B"
-      ? styles.levelB
-      : level === "Level C"
-      ? styles.levelC
-      : styles.levelD
+        ? styles.levelB
+        : level === "Level C"
+          ? styles.levelC
+          : styles.levelD
     : styles.incomplete;
 
   return (

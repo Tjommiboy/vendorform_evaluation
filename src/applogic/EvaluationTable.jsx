@@ -4,6 +4,8 @@ import styles from "./VendorForm.module.scss";
 export default function EvaluationTable({
   criteria,
   ratings,
+  scrollTargetRow,
+  rowRef,
   onRate,
   onCategoryChange,
   onWeightChange,
@@ -32,10 +34,15 @@ export default function EvaluationTable({
               row={i}
               data={c}
               rating={ratings[i]}
+              rowRef={i === scrollTargetRow ? rowRef : null}
               onRate={(value) => onRate(i, value)}
-              onCategoryChange={(field, value) => onCategoryChange(i, field, value)}
+              onCategoryChange={(field, value) =>
+                onCategoryChange(i, field, value)
+              }
               onWeightChange={(value) => onWeightChange(i, value)}
-              onItemChange={(itemIndex, value) => onItemChange(i, itemIndex, value)}
+              onItemChange={(itemIndex, value) =>
+                onItemChange(i, itemIndex, value)
+              }
               onAddItem={() => onAddItem(i)}
               onRemoveItem={(itemIndex) => onRemoveItem(i, itemIndex)}
               onRemoveCategory={() => onRemoveCategory(i)}
